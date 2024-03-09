@@ -1,14 +1,13 @@
 ---
-name: test cancel
+name: delete branch
 on: pull_request
 jobs:
-  foo:
+  delete-branch:
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
-      - run: sleep 1
-  bar:
-    runs-on: ubuntu-latest
-    needs: [foo]
-    if: failure()
-    steps:
-      - run: exit 1
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - run: echo "$TOKEN" | gh auth login --with-token
+        env:
+          TOKEN: ${{secrets.GH_TOKEN}}
+      - run: git push origin --delete "lock/foo"
