@@ -1,6 +1,24 @@
 ---
 name: test octo sts
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      identity:
+        description: 'The identity'
+        required: true
+        default: 'foo'
+      scope:
+        description: 'scope'
+        required: true
+        default: 'suzuki-shunsuke/test-github-action-2'
+      issue_repo:
+        description: 'issue repo'
+        required: true
+        default: 'suzuki-shunsuke/test-github-action-2'
+      issue_number:
+        description: 'issue number'
+        required: true
+        default: '4'
 jobs:
   foo:
     runs-on: ubuntu-latest
@@ -10,13 +28,15 @@ jobs:
       - uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # v1.0.0
         id: octo-sts
         with:
-          scope: suzuki-shunsuke/test-github-action-2
-          identity: foo
+          scope: ${{inputs.scope}}
+          identity: ${{inputs.identity}}
       - env:
           GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
         run: |
           gh repo list
       - env:
           GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
+          REPO: ${{ inputs.issue_repo }}
+          NUMBER: ${{ inputs.issue_number }}
         run: |
-          gh -R "$GITHUB_REPOSITORY" issue comment 4 --body "Test Octo STS"
+          gh -R "$REPO" issue comment "$NUMBER" --body "Test Octo STS"
