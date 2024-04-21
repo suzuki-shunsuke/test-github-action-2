@@ -15,7 +15,7 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
         run: |
-          gh -R "$GITHUB_REPOSITORY" repo list
+          gh repo list
       - env:
           GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
         run: |
