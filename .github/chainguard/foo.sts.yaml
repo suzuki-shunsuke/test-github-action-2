@@ -5,4 +5,6 @@ permissions:
   contents: read
   issues: write
 
-repositories: []
+repositories:
+  - test-github-action
+  - test-github-action-2
