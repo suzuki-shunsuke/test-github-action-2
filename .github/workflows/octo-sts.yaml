@@ -12,6 +12,7 @@ jobs:
         with:
           scope: suzuki-shunsuke/test-github-action-2
           identity: pull_request
+          endpoint: ${{ secrets.OCTO_STS_ENDPOINT }}
       - env:
           GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
         run: |
