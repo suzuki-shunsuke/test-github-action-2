@@ -1,0 +1,23 @@
+---
+name: pull_request
+on: pull_request
+jobs:
+  foo:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # Needed to federate tokens.
+    steps:
+      - uses: suzuki-shunsuke/action@feat-add-input-endpoint
+        id: octo-sts
+        with:
+          scope: suzuki-shunsuke/test-github-action-2
+          identity: pull_request
+      - env:
+          GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
+        run: |
+          gh repo list
+      - env:
+          GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
+          NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          gh -R "$GITHUB_REPOSITORY" pr comment "$NUMBER" --body "Test Octo STS"
