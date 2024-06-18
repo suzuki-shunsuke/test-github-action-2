@@ -129,7 +129,7 @@ jobs:
                 else .[] | select(.Descriptor.platform.architecture==\"$arch\" and
                 .Descriptor.platform.os==\"$os\") | .Descriptor.digest
                 end")
-            cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${image_name}}@${digest}"
+            cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${image_name}@${digest}"
           }
 
           targets="test-argo-workflows"
