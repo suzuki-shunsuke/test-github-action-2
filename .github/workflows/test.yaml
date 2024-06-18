@@ -1,6 +1,9 @@
 ---
 name: test
 on: pull_request
+defaults:
+  run:
+    shell: bash
 jobs:
   build-linux:
     runs-on: ubuntu-latest
