@@ -79,11 +79,11 @@ jobs:
           targets="test-argo-workflows"
           tag_suffix=linux-amd64
           for target in $targets; do
-            image_name="${DOCKERIO_ORG}/${target}"
-            docker manifest create quay.io/${image_name}:${tag}-${tag_suffix}
+            image_name="${docker_org}/${target}:${tag}"
+            docker manifest create "quay.io/$image_name" "quay.io/${image_name}-${tag_suffix}"
 
-            docker manifest push quay.io/${image_name}:${tag}-${tag_suffix}
+            docker manifest push quay.io/${image_name}
 
-            digest=$(docker inspect quay.io/${image_name}:${tag}-${tag_suffix} | jq -r '.[0].RepoDigests[0]' | cut -d'@' -f2)
-            cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${image_name}:${digest}"
+            digest=$(docker inspect quay.io/${image_name}-${tag_suffix} | jq -r '.[0].RepoDigests[0]' | cut -d'@' -f2)
+            cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${docker_org}/${target}:${digest}"
           done
