@@ -93,5 +93,5 @@ jobs:
                   .Descriptor.platform.os=="linux") | .Descriptor.digest
                   end')
             echo "digest: $digest"
-            cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${docker_org}/${target}:${digest}"
+            cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${docker_org}/${target}@${digest}"
           done
