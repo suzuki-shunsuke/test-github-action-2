@@ -1,0 +1,2 @@
+ARG IMAGE_OS_VERSION=ltsc2022-amd64
+FROM mcr.microsoft.com/windows/servercore:${IMAGE_OS_VERSION} as builder
