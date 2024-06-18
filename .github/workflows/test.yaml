@@ -7,6 +7,7 @@ jobs:
     steps:
       - uses: suzuki-shunsuke/gh-find-current-pr@52df560f9181a2d5aaffd3b6934f5921b48920f4
         id: pr
-      - run: echo "$PAYLOAD"
+      - run: echo "$AUTHOR"
         env:
           PAYLOAD: "${{steps.pr.outputs.payload}}"
+          AUTHOR: "${{fromJson(steps.pr.outputs.payload).user.login}}"
