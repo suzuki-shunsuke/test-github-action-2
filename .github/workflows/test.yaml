@@ -1,14 +1,13 @@
 ---
-name: test cancel
+name: test
 on: pull_request
 jobs:
   foo:
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 1
-  bar:
-    runs-on: ubuntu-latest
-    needs: [foo]
-    if: failure()
-    steps:
-      - run: exit 1
+      - uses: suzuki-shunsuke/gh-find-current-pr@52df560f9181a2d5aaffd3b6934f5921b48920f4
+        id: pr
+      - run: echo "$AUTHOR"
+        env:
+          PAYLOAD: "${{steps.pr.outputs.payload}}"
+          AUTHOR: "${{fromJson(steps.pr.outputs.payload).user.login}}"
