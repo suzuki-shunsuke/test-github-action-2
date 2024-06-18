@@ -84,6 +84,14 @@ jobs:
 
             docker manifest push quay.io/${image_name}
 
-            digest=$(docker inspect quay.io/${image_name}-${tag_suffix} | jq -r '.[0].RepoDigests[0]' | cut -d'@' -f2)
+            docker manifest inspect --verbose quay.io/${image_name}-${tag_suffix}
+
+            digest=$(docker manifest inspect --verbose quay.io/${image_name}-${tag_suffix} |
+              jq -r 'if type=="object"
+                  then .Descriptor.digest
+                  else .[] | select(.Descriptor.platform.architecture=="amd64" and
+                  .Descriptor.platform.os=="linux") | .Descriptor.digest
+                  end')
+            echo "digest: $digest"
             cosign sign -y --key env://COSIGN_PRIVATE_KEY "quay.io/${docker_org}/${target}:${digest}"
           done
