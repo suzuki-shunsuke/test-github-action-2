@@ -21,6 +21,7 @@ on:
         default: '4'
 jobs:
   foo:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     permissions:
       id-token: write # Needed to federate tokens.
