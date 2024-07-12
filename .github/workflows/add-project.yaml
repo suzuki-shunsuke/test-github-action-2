@@ -1,0 +1,43 @@
+name: Add issues and pull requests to a project
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-to-project:
+    runs-on: ubuntu-latest
+    permissions: {}
+    timeout-minutes: 10
+    if: |
+      github.event_name == 'issues' || ! github.event.pull_request.head.repo.fork
+    steps:
+      - id: token
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a # v2.1.0
+        with:
+          app_id: ${{secrets.APP_ID}}
+          private_key: ${{secrets.APP_PRIVATE_KEY}}
+          permissions: >-
+            {
+              "projects": "write"
+            }
+          repositories: >-
+            []
+      - run: |
+          if [ -n "${ISSUE_URL:-}" ]; then
+            echo "url=$ISSUE_URL" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "url=$PR_URL" >> "$GITHUB_OUTPUT"
+        id: url
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+      - run: gh project item-add 5 --owner @me "$URL"
+        env:
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
+          URL: ${{ steps.url.outputs.url }}
