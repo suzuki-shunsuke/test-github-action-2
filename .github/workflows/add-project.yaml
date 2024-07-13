@@ -23,7 +23,7 @@ jobs:
           private_key: ${{secrets.APP_PRIVATE_KEY}}
           permissions: >-
             {
-              "projects": "write"
+              "project": "write"
             }
           repositories: >-
             []
