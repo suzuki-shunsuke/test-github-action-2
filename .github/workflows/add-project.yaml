@@ -4,9 +4,11 @@ on:
   issues:
     types:
       - opened
+      - reopened
   pull_request:
     types:
       - opened
+      - reopened
 
 jobs:
   add-to-project:
@@ -27,6 +29,9 @@ jobs:
           #   }
           # repositories: >-
           #   []
+      - run: gh project list
+        env:
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
       - run: |
           if [ -n "${ISSUE_URL:-}" ]; then
             echo "url=$ISSUE_URL" >> "$GITHUB_OUTPUT"
