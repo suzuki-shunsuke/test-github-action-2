@@ -21,12 +21,12 @@ jobs:
         with:
           app_id: ${{secrets.APP_ID}}
           private_key: ${{secrets.APP_PRIVATE_KEY}}
-          permissions: >-
-            {
-              "project": "write"
-            }
-          repositories: >-
-            []
+          # permissions: >-
+          #   {
+          #     "project": "write"
+          #   }
+          # repositories: >-
+          #   []
       - run: |
           if [ -n "${ISSUE_URL:-}" ]; then
             echo "url=$ISSUE_URL" >> "$GITHUB_OUTPUT"
