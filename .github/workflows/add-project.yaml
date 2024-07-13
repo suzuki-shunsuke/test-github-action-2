@@ -24,6 +24,7 @@ jobs:
           app_id: ${{secrets.APP_ID}}
           private_key: ${{secrets.APP_PRIVATE_KEY}}
           installation_retrieval_mode: user
+          installation_retrieval_payload: suzuki-shunsuke
           # permissions: >-
           #   {
           #     "project": "write"
