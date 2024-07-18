@@ -1,16 +1,14 @@
 ---
-name: test cancel
+name: test container
 on: pull_request
 jobs:
-  foo:
-    timeout-minutes: 30
+  container-test-job:
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
+    container:
+      image: ghcr.io/suzuki-shunsuke/test-github-action-2:0.0.2
     steps:
-      - run: sleep 1
-  bar:
-    timeout-minutes: 30
-    runs-on: ubuntu-latest
-    needs: [foo]
-    if: failure()
-    steps:
-      - run: exit 1
+      - run: whoami
+      - uses: actions/checkout@v4
+      - run: ls -lh
