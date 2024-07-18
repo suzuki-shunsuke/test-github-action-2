@@ -12,7 +12,7 @@ jobs:
       - run: apt-get install -y git
       - uses: actions/checkout@v4
         with:
-          set-safe-directory: ''
+          set-safe-directory: ${{ github.workspace }}
       - run: pwd
       - run: echo $ROOT_DIR
         env:
