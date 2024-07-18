@@ -11,12 +11,14 @@ jobs:
       - run: apt-get update
       - run: apt-get install -y git
       - uses: actions/checkout@v4
+        with:
+          set-safe-directory: ''
       - run: pwd
       - run: echo $ROOT_DIR
         env:
           ROOT_DIR: ${{ github.workspace }}
       - run: ls -lAh
-      - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      # - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - run: git diff --quiet README.md
       # - run: git diff -C "$ROOT_DIR" --quiet README.md
       #   env:
