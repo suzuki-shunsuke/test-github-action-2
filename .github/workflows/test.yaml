@@ -8,9 +8,6 @@ jobs:
       packages: read
     container:
       image: ghcr.io/suzuki-shunsuke/test-github-action-2:0.0.1
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ github.token }}
     steps:
       - run: whoami
       - uses: actions/checkout@v4
