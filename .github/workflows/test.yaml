@@ -8,8 +8,8 @@ jobs:
     #   image: "debian:bookworm-20240701"
     steps:
       - run: whoami
-      - run: apt-get update
-      - run: apt-get install -y git
+      # - run: apt-get update
+      # - run: apt-get install -y git
       - uses: actions/checkout@v4
       - run: ls -lh
       - run: git diff --quiet README.md
