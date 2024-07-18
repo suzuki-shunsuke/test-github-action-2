@@ -4,8 +4,8 @@ on: pull_request
 jobs:
   container-test-job:
     runs-on: ubuntu-latest
-    container:
-      image: "debian:bookworm-20240701"
+    # container:
+    #   image: "debian:bookworm-20240701"
     steps:
       - run: whoami
       - run: apt-get update
