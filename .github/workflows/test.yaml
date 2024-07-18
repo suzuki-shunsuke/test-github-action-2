@@ -7,7 +7,7 @@ jobs:
     permissions:
       packages: read
     container:
-      image: ghcr.io/suzuki-shunsuke/test-github-action-2:0.0.1
+      image: ghcr.io/suzuki-shunsuke/test-github-action-2:0.0.2
     steps:
       - run: whoami
       - uses: actions/checkout@v4
