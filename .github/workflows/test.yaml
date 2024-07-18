@@ -12,6 +12,9 @@ jobs:
       - run: apt-get install -y git
       - uses: actions/checkout@v4
       - run: pwd
+      - run: echo $ROOT_DIR
+        env:
+          ROOT_DIR: ${{ github.workspace }}
       - run: ls -lAh
       - run: git diff --quiet README.md
       # - run: git diff -C "$ROOT_DIR" --quiet README.md
