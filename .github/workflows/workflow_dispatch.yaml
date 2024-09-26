@@ -38,6 +38,6 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ steps.octo-sts.outputs.token }}
           REPO: ${{ inputs.issue_repo }}
-          NUMBER: ${{ inputs.issue_number }}
+          NUMBER: "5"
         run: |
-          gh -R "$REPO" issue comment "$NUMBER" --body "Test Octo STS"
+          gh -R "$REPO" pr comment "$NUMBER" --body "Test Octo STS"
