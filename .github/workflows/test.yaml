@@ -6,7 +6,7 @@ jobs:
     timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 1
+      - run: sleep 3600
   bar:
     timeout-minutes: 30
     runs-on: ubuntu-latest
