@@ -1,16 +1,25 @@
 ---
-name: test cancel
+name: test container
 on: pull_request
 jobs:
-  foo:
-    timeout-minutes: 30
+  container-test-job:
     runs-on: ubuntu-latest
+    container:
+      image: "debian:bookworm-20240701"
     steps:
-      - run: sleep 1
-  bar:
-    timeout-minutes: 30
-    runs-on: ubuntu-latest
-    needs: [foo]
-    if: failure()
-    steps:
-      - run: exit 1
+      - run: whoami
+      - run: apt-get update
+      - run: apt-get install -y git
+      - uses: actions/checkout@v4
+        with:
+          set-safe-directory: ${{ github.workspace }}
+      - run: pwd
+      - run: echo $ROOT_DIR
+        env:
+          ROOT_DIR: ${{ github.workspace }}
+      - run: ls -lAh
+      # - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - run: git diff --quiet README.md
+      # - run: git diff -C "$ROOT_DIR" --quiet README.md
+      #   env:
+      #     ROOT_DIR: ${{ github.workspace }}
